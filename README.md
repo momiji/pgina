@@ -4,6 +4,10 @@ pGina is a pluggable Open Source GINA and CredentialProvider replacement.
 Plugins are written in managed code and allow for user authentication, session
 management and login time actions.
 
+___This fork aims at:___
+* ___removing "pGina created" usage as I don't need it, I want all accounts managed by LocalMachine if skiped before, with no automatic provisionning___
+* ___modified DLL are pGina.Service.Impl.dll and pGina.Plugin.LocalMachine.dll___
+
 ## License
 
 Copyright (c) 2016, pGina Team

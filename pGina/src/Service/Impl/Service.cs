@@ -402,7 +402,7 @@ namespace pGina.Service.Impl
                     Abstractions.WindowsApi.pInvokes.structenums.USER_INFO_4 userinfo4 = new Abstractions.WindowsApi.pInvokes.structenums.USER_INFO_4();
                     if (Abstractions.WindowsApi.pInvokes.UserGet(sessionDriver.UserInformation.Username, ref userinfo4))
                     {
-                        if (!userinfo4.comment.Contains("pGina created"))
+                        if (false && !userinfo4.comment.Contains("pGina created"))
                         {
                             result.Success = Abstractions.WindowsApi.pInvokes.ValidateUser(sessionDriver.UserInformation.Username, sessionDriver.UserInformation.Domain, sessionDriver.UserInformation.Password);
                             if (result.Success)
