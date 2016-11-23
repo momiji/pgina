@@ -433,6 +433,7 @@ namespace pGina.Service.Impl
                         {
                             //the user is still logged in
                             isLoggedIN = true;
+                            break;
                             if (iUsers.Any(s => s.EndsWith("\\" + sessionDriver.UserInformation.Username, StringComparison.CurrentCultureIgnoreCase)))
                             {
                                 int Locked_sessionID = Convert.ToInt32(iUsers.Find(s => s.EndsWith("\\" + sessionDriver.UserInformation.Username, StringComparison.CurrentCultureIgnoreCase)).Split('\\').First());
@@ -495,7 +496,7 @@ namespace pGina.Service.Impl
                             }
                         }
                     }
-                    if (!isLoggedIN)
+                    if (true || !isLoggedIN)
                     {
                         result = sessionDriver.PerformLoginProcess();
                     }
