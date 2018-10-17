@@ -284,7 +284,8 @@ namespace pGina.Plugin.LocalMachine
             PluginActivityInformation pluginInfo = properties.GetTrackedSingle<PluginActivityInformation>();
             foreach (Guid uuid in pluginInfo.GetAuthenticationPlugins())
             {
-                if (pluginInfo.GetAuthenticationResult(uuid).Success)
+                BooleanResult pluginResult = pluginInfo.GetAuthenticationResult(uuid);
+                if (pluginResult.Success || pluginResult.Stop)
                     return true;
             }
 
@@ -304,7 +305,8 @@ namespace pGina.Plugin.LocalMachine
                 m_logger.DebugFormat("Found username: {0}", userInfo.Username);
 
                 // Should we authenticate? Only if user has not yet authenticated, or we are not in fallback mode
-                if (alwaysAuth || !HasUserAuthenticatedYet(properties))
+                bool hasUserAuthenticated = HasUserAuthenticatedYet(properties);
+                if (alwaysAuth || !hasUserAuthenticated)
                 {
                     if (LocalAccount.UserExists(userInfo.Username))
                     {
@@ -334,7 +336,9 @@ namespace pGina.Plugin.LocalMachine
                     }
                 }
 
-                m_logger.ErrorFormat("Failed to authenticate user: {0}", userInfo.Username);
+                if (!hasUserAuthenticated)
+                    m_logger.ErrorFormat("Failed to authenticate user: {0}", userInfo.Username);
+
                 // Note that we don't include a message.  We are a last chance auth, and want previous/failed plugins
                 //  to have the honor of explaining why.
                 return new BooleanResult() { Success = false, Message = null };

@@ -36,6 +36,7 @@ namespace pGina.Shared.Types
     public struct BooleanResult
     {
         public bool Success { get; set; }
+        public bool Stop { get; set; }
         public string Message
         {
             get
