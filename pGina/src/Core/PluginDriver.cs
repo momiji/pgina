@@ -195,6 +195,7 @@ namespace pGina.Core
                 try
                 {
                     pluginResult = plugin.AuthenticateUser(m_properties);
+                    m_logger.WarnFormat("Plugin result Success={0} Stop={1} Message={2}", pluginResult.Success, pluginResult.Stop, pluginResult.Message);
                     pluginInfo.AddAuthenticateResult(plugin.Uuid, pluginResult);
 
                     if (pluginResult.Success)
@@ -214,6 +215,11 @@ namespace pGina.Core
                             m_logger.WarnFormat("{0} Failed without a message", plugin.Uuid);
                             finalResult.Message = String.Format("Failed to authenticate user: {0}", m_properties.GetTrackedSingle<UserInformation>().Username);
                         }
+                    }
+
+                    if (pluginResult.Stop)
+                    {
+                        break;
                     }
                 }
                 catch (Exception e)
